@@ -1,0 +1,1 @@
+An RSS reader for [Meteor](http://www.meteor.com/).

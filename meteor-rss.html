@@ -1,0 +1,30 @@
+<head>
+  <title>meteorss</title>
+</head>
+
+<body>
+  {{> feeds}}
+  {{> overview}}
+</body>
+
+<template name="feeds">
+  <h1>Feeds</h1>
+      <h2>Add new feed</h2>
+      <label for="feedUrl">URL: </label>
+      <input type="url" id="feedUrl" />
+      <button id="addFeed">Add</button>
+  <ul>
+      {{#each feedList}}
+          <li>{{name}} <input type="button" value="Remove" class="remove" />
+      {{/each}}</li>
+  </ul>
+</template>
+
+<template name="overview">
+    <h1>Latest articles</h1>
+    <ul>
+        {{#each articles}}
+            <li>{{headline}}</li>
+        {{/each}}
+    </ul>
+</template>
