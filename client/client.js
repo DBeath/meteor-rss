@@ -16,10 +16,13 @@ Template.feeds.events({
 Template.overview.events({
     'click input.removeArticle': function(){
         Articles.remove(this._id);
+    },
+    'click input.removeAll': function(){
+        Meteor.call('removeAll');
     }
 });
 
 
 Template.overview.articles = function() {
-    return Articles.find({}, {sort: [["published", "desc"]]});
+    return Articles.find({}, {sort: [["date", "desc"]]});
 };

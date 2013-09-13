@@ -22,9 +22,10 @@
 
 <template name="overview">
     <h1>Latest articles</h1>
+    <input type="button" value="Remove All" class="removeAll" />
     <ul>
         {{#each articles}}
-            <li><input type="button" value="Remove" class="removeArticle" /> {{headline}} </li>
+            <li><input type="button" value="Remove" class="removeArticle" /> {{title}} </li>
         {{/each}}
     </ul>
 </template>

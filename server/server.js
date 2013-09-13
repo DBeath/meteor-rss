@@ -7,8 +7,8 @@ var addArticle = function(feed) {
 	return function(article){
 		Fiber(function(){
 			Articles.insert({
-				headline: article.title,
-				published: article.date
+				title: article.title,
+				date: article.date
 			});
 		}).run();
 	};
@@ -29,12 +29,17 @@ var readFeed = function(feed){
 		      	console.log('Got article: %s', item.title || item.description);
 		      	Fiber(function(){
 		      		Articles.insert({
-		      			headline: item.title,
-		      			published: item.date
+		      			title: item.title,
+		      			date: item.date,
+		      			content: item.description
 		      		});
 		      	}).run();	
 		    	}
   		});
+};
+
+var removeAllArticles = function(){
+	Articles.remove({});
 };
 
 Meteor.methods({
@@ -46,6 +51,9 @@ Meteor.methods({
       	console.error(e);
           console.log("Invalid URL: " + url);
       }
+  },
+  "removeAll": function(){
+  	removeAllArticles();
   }
 });
 
