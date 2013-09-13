@@ -31,7 +31,8 @@ var readFeed = function(feed){
 		      		Articles.insert({
 		      			title: item.title,
 		      			date: item.date,
-		      			content: item.description
+		      			content: item.description,
+		      			read: false
 		      		});
 		      	}).run();	
 		    	}

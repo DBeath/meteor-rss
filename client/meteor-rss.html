@@ -25,7 +25,11 @@
     <input type="button" value="Remove All" class="removeAll" />
     <ul>
         {{#each articles}}
-            <li><input type="button" value="Remove" class="removeArticle" /> {{title}} </li>
+            {{> article }}
         {{/each}}
     </ul>
+</template>
+
+<template name="articles">
+    <li class="article {{open_class}}"><input type="button" value="Remove" class="removeArticle" /> {{title}} </li>
 </template>

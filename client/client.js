@@ -2,6 +2,10 @@ Template.feeds.feedList = function () {
     return Feeds.find();
 };
 
+Template.articles.open_class = function(){
+    return this.open ? "open" : "";
+};
+
 Template.feeds.events({
     'click #addFeed': function() {
         Meteor.call('addFeed', $('#feedUrl').val());
@@ -21,6 +25,12 @@ Template.overview.events({
         Meteor.call('removeAll');
     }
 });
+
+Template.articles.events({
+    'click #article': function(){
+        Articles.update(this._id, {$set: {open: !this.open}});
+    }
+})
 
 
 Template.overview.articles = function() {
