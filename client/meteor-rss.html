@@ -12,19 +12,24 @@
       <h2>Add new feed</h2>
       <label for="feedUrl">URL: </label>
       <input type="url" id="feedUrl" />
-      <button id="addFeed">Add</button>
+      <input type="button" value="Add Feed" id="addFeed" />
   <ul>
       {{#each feedList}}
-          <li>{{name}} <input type="button" value="Remove" class="remove" />
-      {{/each}}</li>
+          <li>{{name}} <input type="button" value="Remove" class="removeFeed" /></li>
+      {{/each}}
   </ul>
 </template>
 
 <template name="overview">
     <h1>Latest articles</h1>
+    <input type="button" value="Remove All" class="removeAll" />
     <ul>
         {{#each articles}}
-            <li>{{headline}}</li>
+            {{> article }}
         {{/each}}
     </ul>
+</template>
+
+<template name="articles">
+    <li class="article {{open_class}}"><input type="button" value="Remove" class="removeArticle" /> {{title}} </li>
 </template>
