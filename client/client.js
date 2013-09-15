@@ -1,13 +1,13 @@
-Template.feeds.feedList = function () {
+Session.setDefault('article_open', null);
+
+/// feeds ///
+
+Template.feeds.feedList = function(){
     return Feeds.find();
 };
 
-Template.articles.open_class = function(){
-    return this.open ? "open" : "";
-};
-
 Template.feeds.events({
-    'click #addFeed': function() {
+    'click #addFeed': function(){
         Meteor.call('addFeed', $('#feedUrl').val());
         $("#feedUrl").val("");
     },
@@ -17,6 +17,33 @@ Template.feeds.events({
     
 });
 
+/// article ///
+
+Template.article.open_class = function(){
+    return this.open ? "open" : "";
+};
+
+Template.article.open = function(){
+    return Session.equals('article_open', this._id);
+};
+
+Template.article.events({
+    'click #article': function(){
+        Articles.update(this._id, {$set: {open: !this.open}});
+    },
+
+    'click .article': function(){
+        Session.set('article_open', this._id);
+        Deps.flush();
+    }
+})
+
+/// overview ///
+
+Template.overview.articles = function(){
+    return Articles.find({}, {sort: [["date", "desc"]]});
+};
+
 Template.overview.events({
     'click input.removeArticle': function(){
         Articles.remove(this._id);
@@ -25,14 +52,3 @@ Template.overview.events({
         Meteor.call('removeAll');
     }
 });
-
-Template.articles.events({
-    'click #article': function(){
-        Articles.update(this._id, {$set: {open: !this.open}});
-    }
-})
-
-
-Template.overview.articles = function() {
-    return Articles.find({}, {sort: [["date", "desc"]]});
-};

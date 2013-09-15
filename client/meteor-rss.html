@@ -9,7 +9,7 @@
 
 <template name="feeds">
   <h1>Feeds</h1>
-      <h2>Add new feed</h2>
+      <h3>Add new feed</h3>
       <label for="feedUrl">URL: </label>
       <input type="url" id="feedUrl" />
       <input type="button" value="Add Feed" id="addFeed" />
@@ -30,6 +30,14 @@
     </ul>
 </template>
 
-<template name="articles">
-    <li class="article {{open_class}}"><input type="button" value="Remove" class="removeArticle" /> {{title}} </li>
+<template name="article">
+    <li class="article"><input type="button" value="Remove" class="removeArticle" /> {{title}}
+        {{#if open}}
+            <div class="article_content">
+                {{{content}}} 
+            </div>      
+        {{/if}}
+    </li>
 </template>
+
+

@@ -26,15 +26,14 @@ var readFeed = function(feed){
 		.on('readable', function() {
 			var stream = this, item;
 			while (item = stream.read()) {
-		      	console.log('Got article: %s', item.title || item.description);
-		      	Fiber(function(){
-		      		Articles.insert({
-		      			title: item.title,
-		      			date: item.date,
-		      			content: item.description,
-		      			read: false
-		      		});
-		      	}).run();	
+			      	console.log('Got article: %s', item.title || item.description);
+			      	Fiber(function(){
+			      		Articles.insert({
+			      			title: item.title,
+			      			date: item.date,
+			      			content: item.description,
+			      		});
+			      	}).run();	
 		    	}
   		});
 };
