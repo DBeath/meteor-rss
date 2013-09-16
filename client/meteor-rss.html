@@ -31,7 +31,7 @@
 </template>
 
 <template name="article">
-    <li class="article"><input type="button" value="Remove" class="removeArticle" /> {{title}}
+    <li class="article"><input type="button" value="Remove" class="removeArticle" /> {{title}} {{this._id}}
         {{#if open}}
             <div class="article_content">
                 {{{content}}} 

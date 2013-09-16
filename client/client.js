@@ -13,6 +13,11 @@ Template.feeds.events({
     },
     'click input.removeFeed': function(){
         Feeds.remove(this._id);
+    },
+    'keydown' : function(){
+        if(event.which == 13){
+            
+        }
     }
     
 });
