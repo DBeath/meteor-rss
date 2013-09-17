@@ -16,7 +16,7 @@ Template.feeds.events({
     },
     'keydown' : function(){
         if(event.which == 13){
-            
+
         }
     }
     
@@ -33,10 +33,6 @@ Template.article.open = function(){
 };
 
 Template.article.events({
-    'click #article': function(){
-        Articles.update(this._id, {$set: {open: !this.open}});
-    },
-
     'click .article': function(){
         Session.set('article_open', this._id);
         Deps.flush();

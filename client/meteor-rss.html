@@ -15,7 +15,7 @@
       <input type="button" value="Add Feed" id="addFeed" />
   <ul>
       {{#each feedList}}
-          <li>{{name}} <input type="button" value="Remove" class="removeFeed" /></li>
+          <li>{{title}} {{url}} <input type="button" value="Remove" class="removeFeed" /></li>
       {{/each}}
   </ul>
 </template>
@@ -23,21 +23,25 @@
 <template name="overview">
     <h1>Latest articles</h1>
     <input type="button" value="Remove All" class="removeAll" />
-    <ul>
-        {{#each articles}}
-            {{> article }}
-        {{/each}}
-    </ul>
+    {{#each articles}}
+        {{> article }}
+    {{/each}}
 </template>
 
 <template name="article">
-    <li class="article"><input type="button" value="Remove" class="removeArticle" /> {{title}} {{this._id}}
+    <article class="article">
+        <header>
+            <h4>{{title}}</h4> <input type="button" value="Remove" class="removeArticle" /> 
+        </header>
         {{#if open}}
             <div class="article_content">
                 {{{content}}} 
-            </div>      
+            </div>
+            <footer>
+                <a href="{{link}}" />
+            </footer>      
         {{/if}}
-    </li>
+    </article>
 </template>
 
 
