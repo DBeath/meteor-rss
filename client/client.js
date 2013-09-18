@@ -1,4 +1,5 @@
 Session.setDefault('article_open', null);
+Session.setDefault('current_feed', null);
 
 function done(error, result){
     if(error){
@@ -23,7 +24,8 @@ Template.feeds.events({
         Feeds.remove(this._id);
     },
     'click .feed': function(){
-       Meteor.call('refreshFeed', this, done);
+        Session.set('current_feed', this._id);
+        Meteor.call('refreshFeed', this, done);
     },
     'keydown' : function(){
         if(event.which == 13){
@@ -53,7 +55,7 @@ Template.article.events({
 /// overview ///
 
 Template.overview.articles = function(){
-    return Articles.find({}, {sort: [["date", "desc"]]});
+    return Articles.find({feedId: Session.get('current_feed')}, {sort: [["date", "desc"]]});
 };
 
 Template.overview.events({

@@ -4,7 +4,7 @@ var Feedparser = Npm.require('feedparser')
 	, Fiber = Npm.require('fibers');
 
 var addFeed = function(url, userId){
-	if(!(Feeds.findOne({url: url, userId: userId}))){
+	if( !(Feeds.findOne({url: url, userId: userId})) ){
 		request(url)
 			.pipe(new Feedparser([]))
 			.on('meta', function(meta){
@@ -35,7 +35,7 @@ var addArticle = function(article, feed){
 		if(Articles.findOne({feedId: feed._id, guid: article.guid})) return false;
 		Articles.insert({
 			title: article.title,
-			date: article.date,
+			date: article.pubdate,
 			content: article.description,
 			link: article.link,
 			feedId: feed._id,
@@ -49,32 +49,37 @@ var addArticle = function(article, feed){
 };
 
 var readFeed = function(feed){
-	request(feed.url)
-		.pipe(new Feedparser([]))
-		.on('error', function (error) {
-		   	return error;
-		})
-		.on('readable', function() {
-			var stream = this, item;
-			while (item = stream.read()) {
-				addArticle(item, feed);      	
-		    }
-  		});
+	if(Feeds.findOne({_id: feed._id})){
+		request(feed.url)
+			.pipe(new Feedparser([]))
+			.on('error', function (error) {
+			   	return error;
+			})
+			.on('readable', function() {
+				var stream = this, item;
+				while (item = stream.read()) {
+					addArticle(item, feed);      	
+			    }
+	  		});
+	  	return "Feed updated";
+	} else {
+		return "Feed does not exist";
+	}
 };
 
 var removeAllArticles = function(){
 	Articles.remove({});
-	updateAllUnreadCount;
+	updateAllUnreadCount();
 	return "All articles removed";
 };
 
 var updateUnreadCount = function(feed){
-	var unread = Articles.find({feedId: feed._id, read: false}).count();
-	Feeds.update(feed._id, {$set: {unread: unread}});
+	var unreadCount = Articles.find({feedId: feed._id, read: false}).count();
+	Feeds.update(feed._id, {$set: {unread: unreadCount}});
 };
 
 var updateAllUnreadCount = function(){
-	Feeds.find({}).forEach(updateUnreadCount(this));
+	Feeds.find({}).forEach(updateUnreadCount);
 }
 
 Meteor.methods({
@@ -82,13 +87,16 @@ Meteor.methods({
 		return addFeed(url, this.userId);
 	},
 
+	removeFeed: function(feed){
+		Feeds.remove(feed.feed_id)
+	},
+
 	removeAll: function(){
 		return removeAllArticles();
 	},
 
 	refreshFeed: function(feed){
-		readFeed(feed);
-		return "Updated feed";
+		return readFeed(feed);
 	},
 
 	markOneRead: function(feedId){
