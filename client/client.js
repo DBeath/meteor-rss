@@ -1,5 +1,13 @@
 Session.setDefault('article_open', null);
 
+function done(error, result){
+    if(error){
+        console.log(error);
+    } else {
+        console.log(result);
+    }
+};
+
 /// feeds ///
 
 Template.feeds.feedList = function(){
@@ -8,11 +16,14 @@ Template.feeds.feedList = function(){
 
 Template.feeds.events({
     'click #addFeed': function(){
-        Meteor.call('addFeed', $('#feedUrl').val());
+        Meteor.call('addFeed', $('#feedUrl').val(), done);
         $("#feedUrl").val("");
     },
     'click input.removeFeed': function(){
         Feeds.remove(this._id);
+    },
+    'click .feed': function(){
+       Meteor.call('refreshFeed', this, done);
     },
     'keydown' : function(){
         if(event.which == 13){
@@ -24,16 +35,16 @@ Template.feeds.events({
 
 /// article ///
 
-Template.article.open_class = function(){
-    return this.open ? "open" : "";
-};
-
 Template.article.open = function(){
     return Session.equals('article_open', this._id);
 };
 
 Template.article.events({
     'click .article': function(){
+        if(!this.read){
+            Meteor.call('markOneRead', this.feedId, done);
+        }
+        Articles.update(this._id, {$set: {read: true}});
         Session.set('article_open', this._id);
         Deps.flush();
     }
@@ -50,6 +61,6 @@ Template.overview.events({
         Articles.remove(this._id);
     },
     'click input.removeAll': function(){
-        Meteor.call('removeAll');
+        Meteor.call('removeAll', done);
     }
 });

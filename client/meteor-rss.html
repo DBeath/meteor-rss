@@ -10,12 +10,11 @@
 <template name="feeds">
   <h1>Feeds</h1>
       <h3>Add new feed</h3>
-      <label for="feedUrl">URL: </label>
-      <input type="url" id="feedUrl" />
+      <label for="feedUrl">URL: </label><input type="url" id="feedUrl" />
       <input type="button" value="Add Feed" id="addFeed" />
   <ul>
       {{#each feedList}}
-          <li>{{title}} {{url}} <input type="button" value="Remove" class="removeFeed" /></li>
+          <li class="feed">{{title}} {{url}} Unread: {{unread}} <input type="button" value="Remove" class="removeFeed" /></li>
       {{/each}}
   </ul>
 </template>
@@ -31,7 +30,11 @@
 <template name="article">
     <article class="article">
         <header>
-            <h4>{{title}}</h4> <input type="button" value="Remove" class="removeArticle" /> 
+            <h4>{{title}}</h4> 
+            {{#if read}}
+                <h5>You have read this article</h5>
+            {{/if}}
+            <input type="button" value="Remove" class="removeArticle" /> 
         </header>
         {{#if open}}
             <div class="article_content">
