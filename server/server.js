@@ -4,7 +4,7 @@ var Feedparser = Npm.require('feedparser')
 	, Fiber = Npm.require('fibers');
 
 
-
+// Adds a new feed.
 var addFeed = function(url, userId){
 	if( !(Feeds.findOne({url: url, userId: userId})) ){
 		request(url)
@@ -32,6 +32,7 @@ var addFeed = function(url, userId){
 	}
 };
 
+// Adds a new article to the feed.
 var addArticle = function(article, feed){
 	Fiber(function(){
 		if(Articles.findOne({feedId: feed._id, guid: article.guid})) return false;
@@ -56,6 +57,7 @@ var addArticle = function(article, feed){
 	}).run();
 };
 
+// Reads the feed and updates the articles.
 var readFeed = function(feed){
 	if(Feeds.findOne({_id: feed._id})){
 		request(feed.url)
@@ -75,25 +77,30 @@ var readFeed = function(feed){
 	}
 };
 
+// Removes all articles.
 var removeAllArticles = function(){
 	Articles.remove({});
 	updateAllUnreadCount();
 	return "All articles removed";
 };
 
+// Updates the unread count of a feed.
 var updateUnreadCount = function(feed){
 	var unreadCount = Articles.find({feedId: feed._id, read: false}).count();
 	Feeds.update(feed._id, {$set: {unread: unreadCount}});
 };
 
+// Updates the unread count of all feeds.
 var updateAllUnreadCount = function(){
-	Feeds.find({}).forEach(updateUnreadCount);
+	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
 }
 
+// Publish the user's feeds.
 Meteor.publish("feeds", function(){
 	return Feeds.find({userId: this.userId});
 });
 
+// Publish the user's articles.
 Meteor.publish("articles", function(feedId){
 	return Articles.find({feedId: feedId, userId: this.userId});
 })

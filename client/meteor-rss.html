@@ -55,13 +55,9 @@
 
 <template name="overview">
 	<div class="col-md-8">
-			<h1>Latest articles</h1>
-			<input type="button" value="Remove All" class="btn removeAll"/>
-
 		{{#each articles}}
 			{{> article }}
 		{{/each}}
-
 	</div>
 </template>
 
@@ -70,7 +66,7 @@
 		<div class="page-header">
 			<h4>
 			{{#if open}}
-				<a href="{{url}}">{{title}}</a>
+				<a href="{{link}}">{{title}}</a>
 			{{else}}
 				{{title}}
 			{{/if}}

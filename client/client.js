@@ -70,7 +70,7 @@ Template.article.events({
 
 Template.overview.articles = function(){
     return Articles.find({feedId: Session.get('current_feed')},
-        { sort: [["date", "desc"]] });
+        { sort:  [["date", "desc"],['read', 'asc']] });
 };
 
 Template.overview.events({
