@@ -9,11 +9,11 @@ You'll need to have the following programs installed:
 * [node.js](http://nodejs.org/)
 * [feedparser](https://github.com/danmactough/node-feedparser) ```npm install -g feedparser```
 
-Clone the repo ```git clone https://github.com/DBeath/meteor-rss.git```
-Navigate to the directory ```cd meteor-rss```
-Run meteor ```meteor```
-In your browser, navigate to ```localhost:3000```
+Clone the repo ```git clone https://github.com/DBeath/meteor-rss.git```  
+Navigate to the directory ```cd meteor-rss```  
+Run meteor ```meteor```  
+In your browser, navigate to ```localhost:3000```  
 
-
+  
 
 Shout out to [RSSteroids](https://github.com/AVGP/RSSteroids) for some code ideas.
