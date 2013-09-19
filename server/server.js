@@ -3,6 +3,8 @@ var Feedparser = Npm.require('feedparser')
 	, fs = Npm.require('fs')
 	, Fiber = Npm.require('fibers');
 
+
+
 var addFeed = function(url, userId){
 	if( !(Feeds.findOne({url: url, userId: userId})) ){
 		request(url)
@@ -33,9 +35,15 @@ var addFeed = function(url, userId){
 var addArticle = function(article, feed){
 	Fiber(function(){
 		if(Articles.findOne({feedId: feed._id, guid: article.guid})) return false;
+		var date = null;
+		if (article.date){
+			date = article.date;
+		} else {
+			date = article.pubdate;
+		};
 		Articles.insert({
 			title: article.title,
-			date: article.pubdate,
+			date: date,
 			content: article.description,
 			link: article.link,
 			feedId: feed._id,
@@ -82,13 +90,21 @@ var updateAllUnreadCount = function(){
 	Feeds.find({}).forEach(updateUnreadCount);
 }
 
+Meteor.publish("feeds", function(){
+	return Feeds.find({userId: this.userId});
+});
+
+Meteor.publish("articles", function(feedId){
+	return Articles.find({feedId: feedId, userId: this.userId});
+})
+
 Meteor.methods({
 	addFeed: function(url) {
 		return addFeed(url, this.userId);
 	},
 
 	removeFeed: function(feed){
-		Feeds.remove(feed.feed_id)
+		Feeds.remove(feed._id);
 	},
 
 	removeAll: function(){

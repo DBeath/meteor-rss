@@ -1,50 +1,97 @@
+
 <head>
-  <title>meteorss</title>
+  <title>Meteor-RSS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen">
+
 </head>
 
 <body>
-  {{> feeds}}
-  {{> overview}}
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Meteor-RSS</a>
+			<p class="navbar-text pull-right">{{loginButtons align="right"}}</p>
+		</div>
+	</nav>
+
+
+	<div class="container">
+		{{#if currentUser}}
+			<div class="row">
+				{{> feeds}}
+				{{> overview}}
+			</div>
+		{{else}}
+			<h1 class="text-center">Welcome to Meteor-RSS</h1>
+			<p class="text-center">Please Sign In at top right</p>
+		{{/if}}
+	</div>
+
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </body>
 
 <template name="feeds">
-  <h1>Feeds</h1>
-      <h3>Add new feed</h3>
-      <label for="feedUrl">URL: </label><input type="url" id="feedUrl" />
-      <input type="button" value="Add Feed" id="addFeed" />
-  <ul>
-      {{#each feedList}}
-          <li class="feed">{{title}} {{url}} Unread: {{unread}} <input type="button" value="Remove" class="removeFeed" /></li>
-      {{/each}}
-  </ul>
+	<div class="col-md-4"> 
+		<ul class="nav nav-pills nav-stacked affix">
+			<h2 class="">Feeds</h2>
+
+			<div class="input-group">
+				<input type="url" class="form-control" placeholder="Feed Url" id="feedUrl" />
+				<span class="input-group-btn">
+					<button class="btn btn-primary" id="addFeed">Add Feed</button>
+				</span>
+			</div>
+		{{#each feedList}}
+				<li class="feed {{#if current}}active{{/if}}">
+					<a href="#">{{title}} <span class="badge">{{unread}} </span> 
+					<button class="btn btn-xs pull-right removeFeed">Remove</button>
+					</a>
+				</li>
+		{{/each}}
+		</ul>
+	</div>
 </template>
 
 <template name="overview">
-    <h1>Latest articles</h1>
-    <input type="button" value="Remove All" class="removeAll" />
-    {{#each articles}}
-        {{> article }}
-    {{/each}}
+	<div class="col-md-8">
+			<h1>Latest articles</h1>
+			<input type="button" value="Remove All" class="btn removeAll"/>
+
+		{{#each articles}}
+			{{> article }}
+		{{/each}}
+
+	</div>
 </template>
 
 <template name="article">
-    <article class="article">
-        <header>
-            <h4>{{title}}</h4> 
-            {{#if read}}
-                <h5>You have read this article</h5>
-            {{/if}}
-            <input type="button" value="Remove" class="removeArticle" /> 
-        </header>
-        {{#if open}}
-            <div class="article_content">
-                {{{content}}} 
-            </div>
-            <footer>
-                <a href="{{link}}" />
-            </footer>      
-        {{/if}}
-    </article>
+	<article class="article">
+		<div class="page-header">
+			<h4>
+			{{#if open}}
+				<a href="{{url}}">{{title}}</a>
+			{{else}}
+				{{title}}
+			{{/if}}
+
+			{{#if read}}
+				<span class="badge pull-right">Read</span> 
+			{{/if}}
+			</h4>   
+		</div>
+
+		{{#if open}}
+			<div class="article_content">
+				{{{content}}} 
+			</div>
+			<footer>
+				<a href="{{link}}" />
+			</footer>
+			<hr />      
+		{{/if}}
+
+	</article>
 </template>
 
 

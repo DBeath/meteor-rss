@@ -1,13 +1,23 @@
 Session.setDefault('article_open', null);
 Session.setDefault('current_feed', null);
 
-function done(error, result){
-    if(error){
-        console.log(error);
+function done(err, result){
+    if(err){
+        console.log(err);
     } else {
         console.log(result);
     }
 };
+
+Deps.autorun(function(){
+    Meteor.subscribe('feeds');
+    
+});
+
+Deps.autorun(function(){
+    Meteor.subscribe('articles', Session.get('current_feed'));
+});
+
 
 /// feeds ///
 
@@ -15,12 +25,16 @@ Template.feeds.feedList = function(){
     return Feeds.find();
 };
 
+Template.feeds.current = function(){
+    return Session.equals('current_feed', this._id);
+};
+
 Template.feeds.events({
     'click #addFeed': function(){
         Meteor.call('addFeed', $('#feedUrl').val(), done);
         $("#feedUrl").val("");
     },
-    'click input.removeFeed': function(){
+    'click button.removeFeed': function(){
         Feeds.remove(this._id);
     },
     'click .feed': function(){
@@ -55,7 +69,8 @@ Template.article.events({
 /// overview ///
 
 Template.overview.articles = function(){
-    return Articles.find({feedId: Session.get('current_feed')}, {sort: [["date", "desc"]]});
+    return Articles.find({feedId: Session.get('current_feed')},
+        { sort: [["date", "desc"]] });
 };
 
 Template.overview.events({
