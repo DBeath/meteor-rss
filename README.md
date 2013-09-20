@@ -7,7 +7,6 @@ An RSS reader for [Meteor](http://www.meteor.com/).
 You'll need to have the following programs installed:
 * [Meteor](http://www.meteor.com/) ```curl https://install.meteor.com | /bin/sh```
 * [node.js](http://nodejs.org/)
-* [feedparser](https://github.com/danmactough/node-feedparser) ```npm install -g feedparser```
 
 Clone the repo ```git clone https://github.com/DBeath/meteor-rss.git```  
 Navigate to the directory ```cd meteor-rss```  
