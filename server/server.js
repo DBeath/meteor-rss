@@ -1,7 +1,11 @@
-var Feedparser = Npm.require('feedparser')
-	, request = Npm.require('request')
-	, fs = Npm.require('fs')
-	, Fiber = Npm.require('fibers');
+// var Feedparser = Npm.require('feedparser')
+// 	, request = Npm.require('request')
+// 	, fs = Npm.require('fs')
+// 	, Fiber = Npm.require('fibers');
+
+var request = Npm.require('request'),
+	fs = Npm.require('fs'),
+	Fiber = Npm.require('fibers');
 
 
 // Adds a new feed.

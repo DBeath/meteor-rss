@@ -1,0 +1,1 @@
+Feedparser = Npm.require('feedparser');
