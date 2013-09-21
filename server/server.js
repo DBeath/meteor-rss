@@ -49,6 +49,7 @@ var addArticle = function(article, feed){
 		Articles.insert({
 			title: article.title,
 			date: date,
+			author: article.author,
 			content: article.description,
 			link: article.link,
 			feedId: feed._id,
