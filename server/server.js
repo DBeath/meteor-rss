@@ -76,6 +76,7 @@ var readFeed = function(feed){
 					addArticle(item, feed);      	
 			    }
 	  		});
+	  	updateUnreadCount(feed);
 	  	return "Feed updated";
 	} else {
 		return "Feed does not exist";
@@ -133,10 +134,6 @@ Meteor.methods({
 		return readFeed(feed);
 	},
 
-	markOneRead: function(feed){
-		Feeds.update(feed._id, {$inc: {unread: -1}});
-		return "Marked read";
-	},
 	markAllRead: function(feed){
 		return markAllRead(feed);
 	}

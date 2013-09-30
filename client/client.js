@@ -4,7 +4,7 @@ Session.setDefault('current_feed', null);
 function done(err, result){
     if(err){
         console.log(err);
-    } else {
+    } else if(result) {
         console.log(result);
     }
 };
@@ -61,9 +61,9 @@ Template.article.open = function(){
 Template.article.events({
     'click .article': function(){
         if(!this.read){
-            Meteor.call('markOneRead', this, done);
+            Feeds.update(this.feedId, {$inc: {unread: -1}}, done);
+            Articles.update(this._id, {$set: {read: true}}, done);
         }
-        Articles.update(this._id, {$set: {read: true}});
         Session.set('article_open', this._id);
         Deps.flush();
     }
