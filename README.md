@@ -1,8 +1,8 @@
 # Meteor-RSS
 
-An RSS reader for [Meteor](http://www.meteor.com/).
+An RSS reader made with [Meteor](http://www.meteor.com/).
 
-# Installation
+## Installation
 
 You'll need to have the following programs installed:
 * [Meteor](http://www.meteor.com/) ```curl https://install.meteor.com | /bin/sh```
@@ -13,6 +13,7 @@ Navigate to the directory ```cd meteor-rss```
 Run meteor ```meteor```  
 In your browser, navigate to ```localhost:3000```  
 
-  
+If you get an error saying something about npm not being able to find feedparser, then read the [instructions here](http://davidbeath.com/posts/using-node-modules-with-meteor.html).  
 
-Shout out to [RSSteroids](https://github.com/AVGP/RSSteroids) for some code ideas.
+
+Shout out to [RSSteroids](https://github.com/AVGP/RSSteroids) for some good code ideas.
