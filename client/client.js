@@ -41,6 +41,9 @@ Template.feeds.events({
         Session.set('current_feed', this._id);
         Meteor.call('refreshFeed', this, done);
     },
+    'click button.markRead': function(){
+        Meteor.call('markAllRead', this, done);
+    },
     'keydown' : function(){
         if(event.which == 13){
 
@@ -58,7 +61,7 @@ Template.article.open = function(){
 Template.article.events({
     'click .article': function(){
         if(!this.read){
-            Meteor.call('markOneRead', this.feedId, done);
+            Meteor.call('markOneRead', this, done);
         }
         Articles.update(this._id, {$set: {read: true}});
         Session.set('article_open', this._id);

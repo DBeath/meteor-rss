@@ -98,7 +98,13 @@ var updateUnreadCount = function(feed){
 // Updates the unread count of all feeds.
 var updateAllUnreadCount = function(){
 	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
-}
+};
+
+var markAllRead = function(feed){
+	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true});
+	updateUnreadCount(feed);
+	return "Marked all read";
+};
 
 // Publish the user's feeds.
 Meteor.publish("feeds", function(){
@@ -127,9 +133,12 @@ Meteor.methods({
 		return readFeed(feed);
 	},
 
-	markOneRead: function(feedId){
-		Feeds.update(feedId, {$inc: {unread: -1}});
+	markOneRead: function(feed){
+		Feeds.update(feed._id, {$inc: {unread: -1}});
 		return "Marked read";
+	},
+	markAllRead: function(feed){
+		return markAllRead(feed);
 	}
 });
 
