@@ -1,4 +1,5 @@
 Session.setDefault('article_open', null);
+Session.setDefault('previous_article', null);
 Session.setDefault('current_feed', null);
 
 function done(err, result){
@@ -60,12 +61,12 @@ Template.article.open = function(){
 
 Template.article.events({
     'click .article': function(){
+        //Session.set('previous_article', Session.get('article_open'));
+        Session.set('article_open', this._id);
         if(!this.read){
             Feeds.update(this.feedId, {$inc: {unread: -1}}, done);
             Articles.update(this._id, {$set: {read: true}}, done);
-        }
-        Session.set('article_open', this._id);
-        Deps.flush();
+        } 
     }
 })
 
@@ -73,7 +74,7 @@ Template.article.events({
 
 Template.overview.articles = function(){
     return Articles.find({feedId: Session.get('current_feed')},
-        { sort:  [["date", "desc"],['read', 'asc']] });
+        { sort:  [['read', 'asc'],["date", "desc"]] });
 };
 
 Template.overview.events({

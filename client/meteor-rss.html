@@ -38,7 +38,7 @@
 </body>
 
 <template name="feeds">
-	<div class="col-md-4"> 
+	<div class="col-md-5"> 
 		<ul class="nav nav-pills nav-stacked affix">
 			<h2 class="">Feeds</h2>
 
@@ -63,9 +63,12 @@
 </template>
 
 <template name="overview">
-	<div class="col-md-8">
+	<div class="col-md-7">
+
 		{{#each articles}}
+		
 			{{> article }}
+		
 		{{/each}}
 	</div>
 </template>
@@ -90,7 +93,7 @@
 
 		{{#if open}}
 			<div class="article_content">
-				{{{content}}} 
+				{{content}}
 			</div>
 			<footer>
 				<a href="{{link}}" />

@@ -101,21 +101,13 @@ var updateAllUnreadCount = function(){
 	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
 };
 
+// Marks all articles in a feed as read.
 var markAllRead = function(feed){
 	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true});
 	updateUnreadCount(feed);
 	return "Marked all read";
 };
 
-// Publish the user's feeds.
-Meteor.publish("feeds", function(){
-	return Feeds.find({userId: this.userId});
-});
-
-// Publish the user's articles.
-Meteor.publish("articles", function(feedId){
-	return Articles.find({feedId: feedId, userId: this.userId});
-})
 
 Meteor.methods({
 	addFeed: function(url) {
