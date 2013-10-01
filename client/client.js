@@ -61,11 +61,11 @@ Template.article.open = function(){
 
 Template.article.events({
     'click .article': function(){
-        //Session.set('previous_article', Session.get('article_open'));
+        Session.set('previous_article', Session.get('article_open'));
         Session.set('article_open', this._id);
         if(!this.read){
             Feeds.update(this.feedId, {$inc: {unread: -1}}, done);
-            Articles.update(this._id, {$set: {read: true}}, done);
+            Articles.update(Session.get('previous_article'), {$set: {read: true}}, done);
         } 
     }
 })
