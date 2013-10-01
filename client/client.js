@@ -74,7 +74,7 @@ Template.article.events({
 
 Template.overview.articles = function(){
     return Articles.find({feedId: Session.get('current_feed')},
-        { sort:  [['read', 'asc'],["date", "desc"]] });
+        { sort:  [['read', 'asc'],["date", "desc"]] }, {reactive: false});
 };
 
 Template.overview.events({
