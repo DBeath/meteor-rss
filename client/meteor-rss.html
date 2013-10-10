@@ -63,11 +63,9 @@
 
 <template name="overview">
 	<div class="col-md-7">
-		{{#isolate}}
 			{{#each articles}}
 				{{> article }}
 			{{/each}}
-		{{/isolate}}
 	</div>
 </template>
 
@@ -91,7 +89,7 @@
 
 		{{#if open}}
 			<div class="article_content">
-				{{content}}
+				{{{content}}}
 			</div>
 			<footer>
 				<a href="{{link}}" />

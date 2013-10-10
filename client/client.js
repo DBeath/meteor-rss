@@ -68,7 +68,7 @@ Template.article.events({
             Articles.update(Session.get('previous_article'), {$set: {read: true}}, done);
         } 
     }
-})
+});
 
 /// overview ///
 
