@@ -4,7 +4,7 @@ Meteor.publish("feeds", function(){
 	return Feeds.find({userId: this.userId});
 });
 
-// Publish the user's articles.
+// Publish the user's articles for this feed.
 Meteor.publish("articles", function(feedId){
 	return Articles.find({feedId: feedId, userId: this.userId});
 });

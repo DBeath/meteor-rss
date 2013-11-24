@@ -56,14 +56,21 @@ var addArticle = function(article, feed){
 		Articles.insert({
 			title: article.title,
 			date: date,
+			pubdate: article.pubdate,
 			author: article.author,
 			content: article.description,
 			link: article.link,
+			origlink: article.origlink,
 			feedId: feed._id,
 			userId: feed.userId,
 			summary: article.summary,
 			guid: article.guid,
-			read: false
+			read: false, 
+			starred: false,
+			comments: article.comments,
+			image: article.image,
+			categories: article.categories,
+			source: article.source,
 		});
 		Feeds.update(feed._id, {$inc: {unread: 1}});
 	}).run();
@@ -92,32 +99,45 @@ var readFeed = function(feed){
 
 // Removes all articles.
 var removeAllArticles = function(){
-	Articles.remove({});
-	updateAllUnreadCount();
+	Articles.remove({}, done);
+	updateAllUnreadCount(done);
 	return "All articles removed";
 };
 
 // Updates the unread count of a feed.
-var updateUnreadCount = function(feed){
+var updateUnreadCount = function(feed, done){
 	var unreadCount = Articles.find({feedId: feed._id, read: false}).count();
 	Feeds.update(feed._id, {$set: {unread: unreadCount}});
 };
 
 // Updates the unread count of all feeds.
-var updateAllUnreadCount = function(){
+var updateAllUnreadCount = function(done){
 	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
 };
 
 // Marks all articles in a feed as read.
 var markAllRead = function(feed){
 	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true}, done);
-	updateUnreadCount(feed);
+	updateUnreadCount(feed, done);
 	return "Marked all read";
 };
 
-var markRead = function(id){
-	Articles.update(id, {$set: {read: true}}, done);
-}
+var markRead = function(articleId, done){
+	var article = Articles.findOne({_id: articleId}, done);
+	if (!article.read) {
+		Articles.update(article._id, {$set: {read: true}}, done);
+		Feeds.update(article.feedId, {$inc: {unread: -1}}, done);
+	};
+};
+
+var removeFeed = function(feed, done){
+	Feeds.remove(feed._id);
+	Articles.remove({feedId: feed._id, starred: false}, done);
+};
+
+var removeArticle = function(articleId, done){
+	Articles.remove(articleId);
+};
 
 Meteor.methods({
 	addFeed: function(url) {
@@ -125,7 +145,7 @@ Meteor.methods({
 	},
 
 	removeFeed: function(feed){
-		Feeds.remove(feed._id);
+		return removeFeed(feed, done);
 	},
 
 	removeAll: function(){
@@ -140,8 +160,8 @@ Meteor.methods({
 		return markAllRead(feed);
 	},
 
-	markRead: function(id){
-		return markRead(id);
+	markRead: function(articleId){
+		return markRead(articleId, done);
 	}
 });
 

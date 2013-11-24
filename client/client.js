@@ -36,7 +36,8 @@ Template.feeds.events({
         $("#feedUrl").val("");
     },
     'click button.removeFeed': function(){
-        Feeds.remove(this._id);
+        Meteor.call('removeFeed', this, done);
+        Session.set('current_feed', null);
     },
     'click .feed': function(){
         Session.set('current_feed', this._id);
@@ -63,9 +64,7 @@ Template.article.events({
     'click .article': function(){
         Session.set('previous_article', Session.get('article_open'));
         Meteor.call('markRead', Session.get('article_open'), done); 
-        //Feeds.update(prev_article.feedId, {$inc: {unread: -1}}, done);
         Session.set('article_open', this._id);
-
     }
 });
 
