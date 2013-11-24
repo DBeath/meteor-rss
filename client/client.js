@@ -45,12 +45,12 @@ Template.feeds.events({
     },
     'click button.markRead': function(){
         Meteor.call('markAllRead', this, done);
-    },
-    'keydown' : function(){
-        if(event.which == 13){
-
-        }
     }
+    // 'keydown' : function(){
+    //     if(event.which == 13){
+
+    //     }
+    // }
     
 });
 
