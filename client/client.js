@@ -56,17 +56,16 @@ Template.feeds.events({
 /// article ///
 
 Template.article.open = function(){
-    return Session.equals('article_open', this._id);
+    return Session.equals('article_open', this._id) ? "open" : "";
 };
 
 Template.article.events({
     'click .article': function(){
         Session.set('previous_article', Session.get('article_open'));
+        Meteor.call('markRead', Session.get('article_open'), done); 
+        //Feeds.update(prev_article.feedId, {$inc: {unread: -1}}, done);
         Session.set('article_open', this._id);
-        if(!this.read){
-            Feeds.update(this.feedId, {$inc: {unread: -1}}, done);
-            Articles.update(Session.get('previous_article'), {$set: {read: true}}, done);
-        } 
+
     }
 });
 
@@ -74,7 +73,7 @@ Template.article.events({
 
 Template.overview.articles = function(){
     return Articles.find({feedId: Session.get('current_feed')},
-        { sort:  [['read', 'asc'],["date", "desc"]] }, {reactive: false});
+        { sort:  [['read', 'asc'],["date", "desc"]] });
 };
 
 Template.overview.events({

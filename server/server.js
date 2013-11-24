@@ -7,6 +7,13 @@ var request = Npm.require('request'),
 	fs = Npm.require('fs'),
 	Fiber = Npm.require('fibers');
 
+function done(err, result){
+    if(err){
+        console.log(err);
+    } else if(result) {
+        console.log(result);
+    }
+};
 
 // Adds a new feed.
 var addFeed = function(url, userId){
@@ -103,11 +110,14 @@ var updateAllUnreadCount = function(){
 
 // Marks all articles in a feed as read.
 var markAllRead = function(feed){
-	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true});
+	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true}, done);
 	updateUnreadCount(feed);
 	return "Marked all read";
 };
 
+var markRead = function(id){
+	Articles.update(id, {$set: {read: true}}, done);
+}
 
 Meteor.methods({
 	addFeed: function(url) {
@@ -128,6 +138,10 @@ Meteor.methods({
 
 	markAllRead: function(feed){
 		return markAllRead(feed);
+	},
+
+	markRead: function(id){
+		return markRead(id);
 	}
 });
 
