@@ -16,7 +16,7 @@ function done(err, result){
 };
 
 // Adds a new feed.
-var addFeed = function(url, userId){
+var addFeed = function(url, userId, done){
 	if( !(Feeds.findOne({url: url, userId: userId})) ){
 		request(url)
 			.pipe(new Feedparser([]))
@@ -44,7 +44,7 @@ var addFeed = function(url, userId){
 };
 
 // Adds a new article to the feed.
-var addArticle = function(article, feed){
+var addArticle = function(article, feed, done){
 	Fiber(function(){
 		if(Articles.findOne({feedId: feed._id, guid: article.guid})) return false;
 		var date = null;
@@ -87,7 +87,7 @@ var readFeed = function(feed){
 			.on('readable', function() {
 				var stream = this, item;
 				while (item = stream.read()) {
-					addArticle(item, feed);      	
+					addArticle(item, feed, done);      	
 			    }
 	  		});
 	  	updateUnreadCount(feed);
@@ -141,7 +141,7 @@ var removeArticle = function(articleId, done){
 
 Meteor.methods({
 	addFeed: function(url) {
-		return addFeed(url, this.userId);
+		return addFeed(url, this.userId, done);
 	},
 
 	removeFeed: function(feed){

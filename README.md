@@ -13,7 +13,11 @@ Navigate to the directory ```cd meteor-rss```
 Run meteor ```meteor```  
 In your browser, navigate to ```localhost:3000```  
 
-If you get an error saying something about npm not being able to find feedparser, then read the [instructions here](http://davidbeath.com/posts/using-node-modules-with-meteor.html).  
+If you get an error saying something about npm not being able to find feedparser, then read the [instructions here](https://davidbeath.com/posts/using-node-modules-with-meteor.html).  
+
+### Dependencies
+
+* [Node Feedparser](https://github.com/danmactough/node-feedparser) - automatically installed.
 
 
 Shout out to [RSSteroids](https://github.com/AVGP/RSSteroids) for some good code ideas.
