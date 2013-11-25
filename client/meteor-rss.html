@@ -70,9 +70,9 @@
 </template>
 
 <template name="article">
-	<article class="{{open}}" id="{{_id}}">
+	<article class="article {{open}}" id="{{_id}}">
 		<div class="row {{#if read}}read{{/if}}">
-			<h5>
+			<h5 class="articletitle">
 			{{#if open}}
 				<a href="{{link}}">{{title}}</a>
 			{{else}}

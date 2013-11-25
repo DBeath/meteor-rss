@@ -130,6 +130,14 @@ var markRead = function(articleId, done){
 	};
 };
 
+var markUnread = function(articleId, done){
+	var article = Articles.findOne({_id: articleId}, done);
+	if (article.read){
+		Articles.update(article._id, {$set: {read: false}}, done);
+		Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
+	};
+}
+
 var removeFeed = function(feed, done){
 	Feeds.remove(feed._id);
 	Articles.remove({feedId: feed._id, starred: false}, done);
@@ -162,6 +170,10 @@ Meteor.methods({
 
 	markRead: function(articleId){
 		return markRead(articleId, done);
+	},
+
+	markUnread: function(articleId){
+		return markUnread(articleId, done);
 	}
 });
 
