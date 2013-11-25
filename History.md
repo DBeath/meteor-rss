@@ -4,3 +4,4 @@
 * Remove selected feed and all articles
 * Mark all articles as read
 * Mark single article as read
+* Added mark article unread
