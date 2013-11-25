@@ -9,3 +9,12 @@ body {
     -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
+
+.read {
+	background-color: #F0F0F0;
+}
+
+.article {
+	border-style: solid;
+	border-width: 1px;
+}

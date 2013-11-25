@@ -70,8 +70,8 @@
 </template>
 
 <template name="article">
-	<article class="article {{open}}" id="{{_id}}">
-		<div class="row">
+	<article class="{{open}}" id="{{_id}}">
+		<div class="row {{#if read}}read{{/if}}">
 			<h5>
 			{{#if open}}
 				<a href="{{link}}">{{title}}</a>
@@ -82,7 +82,7 @@
 			<small>{{author}}</small>
 
 			{{#if read}}
-				<span class="badge pull-right">Read</span> 
+				<span class="label label-info pull-right">Read</span>
 			{{/if}}
 			  
 
