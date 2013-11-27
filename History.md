@@ -2,6 +2,7 @@
 
 * Scroll window to top of article when article opened
 * Added timestamp to article
+* Click article title to open/close article
 
 ## v0.10.0 / 25-11-2013
 

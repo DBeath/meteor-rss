@@ -57,9 +57,16 @@ Template.article.open = function(){
 Template.article.events({
     'click .articletitle': function(){
         var articleOpen = Session.get('article_open');
-        Session.set('previous_article', articleOpen);
-        Meteor.call('markRead', articleOpen, done); 
-        Session.set('article_open', this._id);   
+
+        Meteor.call('markRead', articleOpen, done);
+        
+        if (articleOpen === this._id){
+            Session.set('article_open', null);
+        } else {
+            Session.set('previous_article', articleOpen);
+             
+            Session.set('article_open', this._id);   
+        };    
     },
     'click .label': function(){
         Meteor.call('markUnread', this._id, done);
