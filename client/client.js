@@ -65,6 +65,13 @@ Template.article.events({
     }
 });
 
+Template.article.helpers({
+    timestamp: function(){
+        var date = this.date;
+        return moment(date).format("MMMM Do YYYY");
+    }
+});
+
 /// overview ///
 
 Template.overview.articles = function(){
