@@ -56,9 +56,10 @@ Template.article.open = function(){
 
 Template.article.events({
     'click .articletitle': function(){
-        Session.set('previous_article', Session.get('article_open'));
-        Meteor.call('markRead', Session.get('article_open'), done); 
-        Session.set('article_open', this._id);
+        var articleOpen = Session.get('article_open');
+        Session.set('previous_article', articleOpen);
+        Meteor.call('markRead', articleOpen, done); 
+        Session.set('article_open', this._id);   
     },
     'click .label': function(){
         Meteor.call('markUnread', this._id, done);
@@ -85,7 +86,7 @@ Template.overview.events({
     },
     'click input.removeAll': function(){
         Meteor.call('removeAll', done);
-    }
+    },
     // 'keydown input' : function(event){
     //     console.log('key', event);
     //     if(event.which == 13){
@@ -99,3 +100,8 @@ Template.overview.events({
     //     });
     // }
 });
+
+Template.overview.rendered = function(){
+    var divId = '#' + Session.get('article_open');
+    $('html, body').scrollTop($(divId).offset().top - 50);
+};

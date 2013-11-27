@@ -1,9 +1,13 @@
-google.load("feeds", "1");
+$.get('https://www.google.com/jsapi', function(response){
+	google.load("feeds", "1");
+});
+
+
 var feedList = new Array();
 
 function search(query){
 	google.feeds.findFeeds(query, findDone);
-}
+};
 
 function findDone(result){
 	if (!result.error){
@@ -11,4 +15,4 @@ function findDone(result){
 			feedList[i] = result.entries[i];
 		}
 	}
-}
+};
