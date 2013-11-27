@@ -59,7 +59,7 @@ Template.article.events({
         var articleOpen = Session.get('article_open');
 
         Meteor.call('markRead', articleOpen, done);
-        
+
         if (articleOpen === this._id){
             Session.set('article_open', null);
         } else {
@@ -68,7 +68,7 @@ Template.article.events({
             Session.set('article_open', this._id);   
         };    
     },
-    'click .label': function(){
+    'click .read': function(){
         Meteor.call('markUnread', this._id, done);
     }
 });
@@ -76,7 +76,7 @@ Template.article.events({
 Template.article.helpers({
     timestamp: function(){
         var date = this.date;
-        return moment(date).format("MMMM Do YYYY");
+        return moment(date).format("MMM Do YYYY, HH:mm");
     }
 });
 
