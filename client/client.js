@@ -59,11 +59,18 @@ Template.article.events({
         Session.set('previous_article', Session.get('article_open'));
         Meteor.call('markRead', Session.get('article_open'), done); 
         Session.set('article_open', this._id);
+
+        
     },
     'click .label': function(){
         Meteor.call('markUnread', this._id, done);
     }
 });
+
+Template.overview.rendered = function(){
+    var divId = '#' + Session.get('article_open');
+    $('html, body').scrollTop($(divId).offset().top - 50);
+};
 
 /// overview ///
 
