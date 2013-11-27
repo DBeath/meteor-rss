@@ -57,7 +57,7 @@ Template.article.open = function(){
 Template.article.events({
     'click .articletitle': function(){
         var articleOpen = Session.get('article_open');
-
+        console.log(articleOpen);
         Meteor.call('markRead', articleOpen, done);
 
         if (articleOpen === this._id){

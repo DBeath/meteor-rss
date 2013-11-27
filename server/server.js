@@ -12,7 +12,7 @@ function done(err, result){
         console.log(err);
     } else if(result) {
         console.log(result);
-    }
+    };
 };
 
 // Adds a new feed.
@@ -40,7 +40,7 @@ function addFeed(url, userId, done){
 		return "Added feed " + url;
 	} else {
 		return "Feed " + url + " already exists.";
-	}
+	};
 };
 
 // Adds a new article to the feed.
@@ -94,61 +94,65 @@ function readFeed(feed){
 	  	return "Feed updated";
 	} else {
 		return "Feed does not exist";
-	}
+	};
 };
 
 // Removes all articles.
 function removeAllArticles(){
-	Articles.remove({}, done);
-	updateAllUnreadCount(done);
-	return "All articles removed";
+	Articles.remove({}, function(){
+		updateAllUnreadCount(done);
+		return "All articles removed";
+	});
 };
 
 // Updates the unread count of a feed.
 function updateUnreadCount(feed, done){
 	var unreadCount = Articles.find({feedId: feed._id, read: false}).count();
-	Feeds.update(feed._id, {$set: {unread: unreadCount}});
+	Feeds.update(feed._id, {$set: {unread: unreadCount}}, done);
 };
 
 // Updates the unread count of all feeds.
 function updateAllUnreadCount(done){
-	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
+	Feeds.find({userId: this.userId}).forEach(updateUnreadCount(feed, done));
 };
 
 // Marks all articles in a feed as read.
 function markAllRead(feed){
-	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true}, done);
-	updateUnreadCount(feed, done);
-	return "Marked all read";
+	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true}, function(){
+		updateUnreadCount(feed, done);
+		return "Marked all read";
+	});	
 };
 
 // Mark a single article as read.
 function markRead(articleId, done){
-	var article = Articles.findOne({_id: articleId}, done);
-	if (!article.read) {
-		Articles.update(article._id, {$set: {read: true}}, done);
-		Feeds.update(article.feedId, {$inc: {unread: -1}}, done);
-	};
+	var article = Articles.findOne({_id: articleId}, function(){
+		if (!article.read) {
+			Articles.update(article._id, {$set: {read: true}}, done);
+			Feeds.update(article.feedId, {$inc: {unread: -1}}, done);
+		};
+	});
 };
 
 // Mark a single article as unread.
 function markUnread(articleId, done){
-	var article = Articles.findOne({_id: articleId}, done);
-	if (article.read){
-		Articles.update(article._id, {$set: {read: false}}, done);
-		Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
-	};
+	var article = Articles.findOne({_id: articleId}, function(){
+		if (article.read){
+			Articles.update(article._id, {$set: {read: false}}, done);
+			Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
+		};
+	});
 };
 
 // Remove a single feed, and all it's unstarred articles.
 function removeFeed(feed, done){
-	Feeds.remove(feed._id);
+	Feeds.remove(feed._id, done);
 	Articles.remove({feedId: feed._id, starred: false}, done);
 };
 
 // Remove a single article.
 function removeArticle(articleId, done){
-	Articles.remove(articleId);
+	Articles.remove(articleId, done);
 };
 
 Meteor.methods({
