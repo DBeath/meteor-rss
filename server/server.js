@@ -16,7 +16,7 @@ function done(err, result){
 };
 
 // Adds a new feed.
-var addFeed = function(url, userId, done){
+function addFeed(url, userId, done){
 	if( !(Feeds.findOne({url: url, userId: userId})) ){
 		request(url)
 			.pipe(new Feedparser([]))
@@ -44,7 +44,7 @@ var addFeed = function(url, userId, done){
 };
 
 // Adds a new article to the feed.
-var addArticle = function(article, feed, done){
+function addArticle(article, feed, done){
 	Fiber(function(){
 		if(Articles.findOne({feedId: feed._id, guid: article.guid})) return false;
 		var date = null;
@@ -77,7 +77,7 @@ var addArticle = function(article, feed, done){
 };
 
 // Reads the feed and updates the articles.
-var readFeed = function(feed){
+function readFeed(feed){
 	if(Feeds.findOne({_id: feed._id})){
 		request(feed.url)
 			.pipe(new Feedparser([]))
@@ -98,31 +98,32 @@ var readFeed = function(feed){
 };
 
 // Removes all articles.
-var removeAllArticles = function(){
+function removeAllArticles(){
 	Articles.remove({}, done);
 	updateAllUnreadCount(done);
 	return "All articles removed";
 };
 
 // Updates the unread count of a feed.
-var updateUnreadCount = function(feed, done){
+function updateUnreadCount(feed, done){
 	var unreadCount = Articles.find({feedId: feed._id, read: false}).count();
 	Feeds.update(feed._id, {$set: {unread: unreadCount}});
 };
 
 // Updates the unread count of all feeds.
-var updateAllUnreadCount = function(done){
+function updateAllUnreadCount(done){
 	Feeds.find({userId: this.userId}).forEach(updateUnreadCount);
 };
 
 // Marks all articles in a feed as read.
-var markAllRead = function(feed){
+function markAllRead(feed){
 	Articles.update({feedId: feed._id}, {$set: {read: true}}, {multi: true}, done);
 	updateUnreadCount(feed, done);
 	return "Marked all read";
 };
 
-var markRead = function(articleId, done){
+// Mark a single article as read.
+function markRead(articleId, done){
 	var article = Articles.findOne({_id: articleId}, done);
 	if (!article.read) {
 		Articles.update(article._id, {$set: {read: true}}, done);
@@ -130,20 +131,23 @@ var markRead = function(articleId, done){
 	};
 };
 
-var markUnread = function(articleId, done){
+// Mark a single article as unread.
+function markUnread(articleId, done){
 	var article = Articles.findOne({_id: articleId}, done);
 	if (article.read){
 		Articles.update(article._id, {$set: {read: false}}, done);
 		Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
 	};
-}
+};
 
-var removeFeed = function(feed, done){
+// Remove a single feed, and all it's unstarred articles.
+function removeFeed(feed, done){
 	Feeds.remove(feed._id);
 	Articles.remove({feedId: feed._id, starred: false}, done);
 };
 
-var removeArticle = function(articleId, done){
+// Remove a single article.
+function removeArticle(articleId, done){
 	Articles.remove(articleId);
 };
 
