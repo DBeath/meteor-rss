@@ -35,7 +35,7 @@ Template.feeds.events({
         Meteor.call('addFeed', $('#feedUrl').val(), done);
         $("#feedUrl").val("");
     },
-    'click button.removeFeed': function(){
+    'click span.removeFeed': function(){
         Meteor.call('removeFeed', this, done);
         Session.set('current_feed', null);
     },
@@ -43,7 +43,7 @@ Template.feeds.events({
         Session.set('current_feed', this._id);
         Meteor.call('refreshFeed', this, done);
     },
-    'click button.markRead': function(){
+    'click span.markRead': function(){
         Meteor.call('markAllRead', this, done);
     }   
 });
@@ -68,7 +68,8 @@ Template.article.events({
             Session.set('article_open', this._id);   
         };    
     },
-    'click .read': function(){
+    'click .markedRead': function(){
+        console.log('read');
         Meteor.call('markUnread', this._id, done);
     }
 });

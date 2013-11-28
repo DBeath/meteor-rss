@@ -2,25 +2,28 @@
 <head>
   <title>Meteor-RSS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen">
-  <link href="/flat-ui.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">Meteor-RSS</a>
-			<p class="navbar-text pull-right">{{loginButtons align="right"}}</p>
-		</div>
+	<nav class="top-bar">
+		<ul class="title-area">
+			<li class="name">
+				<h1><a href="#">Meteor-RSS</a></h1>
+			</li>
+		</ul>
+
+		<section class="top-bar-section">
+			<ul class="left">
+				<li>{{loginButtons}}</li>
+			</ul>
+		</section>
 	</nav>
 
 
-	<div class="container">
+	<div class="row">
 		{{#if currentUser}}
-			<div class="row">
 				{{> feeds}}
 				{{> overview}}
-			</div>
 		{{else}}
 			<h1 class="text-center">Welcome to Meteor-RSS</h1>
 			<p class="text-center">Please Sign In at top right</p>
@@ -30,38 +33,39 @@
 		{{/if}}
 	</div>
 
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
 </body>
 
 <template name="feeds">
-	<div class="col-md-4"> 
-		<ul class="nav nav-pills nav-stacked affix">
-			<h2 class="">Feeds</h2>
+	<div class="large-4 columns"> 
+		<ul class="side-nav">
+			<li class="heading">Feeds</li>
 
-			<div class="input-group">
-				<input type="url" class="form-control" placeholder="Feed Url" id="feedUrl" />
-				<span class="input-group-btn">
-					<button class="btn btn-primary" id="addFeed">Add Feed</button>
-				</span>
+			<div class="row collapse">
+				<div class="small-9 columns">
+					<input type="url" placeholder="Feed Url" id="feedUrl" />
+				</div>
+				<div class="small-3 columns">
+					<a href="#" class="button postfix" id="addFeed"><small>Add Feed</small></a>
+				</div>
 			</div>
-		{{#each feedList}}
-				<li class="feed {{#if current}}active{{/if}}">
-					<a href="#">{{title}} <span class="badge">{{unread}} </span>
+			<li class="divider"></li>
+			{{#each feedList}}
+				<li class="{{#if current}}active{{/if}} feed">
+					<a href="#">{{title}} <span class="label">{{unread}} </span>
 					{{#if unread}}
-						<button class="btn btn-xs pull-right markRead">Mark Read</button>
+						<span class="success label markRead">Mark Read</span>
 					{{/if}} 
-					<button class="btn btn-xs pull-right removeFeed">Remove</button>
+						<span class="alert label removeFeed">Remove</span>
 					</a>
 				</li>
-		{{/each}}
+				<li class="divider"></li>
+			{{/each}}
 		</ul>
 	</div>
 </template>
 
 <template name="overview">
-	<div class="col-md-8">
+	<div class="large-8 columns">
 			{{#each articles}}
 				{{> article }}
 			{{/each}}
@@ -70,7 +74,7 @@
 
 <template name="article">
 	<div class="article {{open}}" id="{{_id}}">
-		<div class="row {{#if read}}read{{/if}}">
+		<div class="row {{#if read}}read{{/if}} clearfix">
 			<h5 class="articletitle">
 			{{#if open}}
 				<a href="{{link}}">{{title}}</a>
@@ -78,11 +82,11 @@
 				{{title}}
 			{{/if}}
 			</h5>
-			
+
 			<small>{{author}} | {{timestamp}}</small>
 
 			{{#if read}}
-				<span class="read label label-info pull-right">Read</span>
+				<span class="label alert right markedRead">Read</span>
 			{{/if}}
 		</div>
 
