@@ -1,0 +1,30 @@
+<template name="article">
+	<div class="article {{open}}" id="{{_id}}">
+		<div class="row {{#if read}}read{{/if}} clearfix">
+			<h5 class="articletitle">
+			{{#if open}}
+				<a href="{{link}}">{{title}}</a>
+			{{else}}
+				{{title}}
+			{{/if}}
+			</h5>
+
+			<small>{{author}} | {{timestamp}}</small>
+
+			{{#if read}}
+				<span class="label alert right markedRead">Read</span>
+			{{/if}}
+		</div>
+
+		{{#if open}}
+			<div class="article_content">
+				{{{content}}}
+			</div>
+			<footer>
+				<a href="{{link}}" />
+			</footer>
+			<hr />      
+		{{/if}}
+
+	</div>
+</template>
