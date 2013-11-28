@@ -1,7 +1,7 @@
 /// feedList ///
 
 Template.feedList.feedList = function(){
-    return feedList.find();
+    return Feeds.find();
 };
 
 Template.feedList.current = function(){
