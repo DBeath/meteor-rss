@@ -1,3 +1,7 @@
+## v0.10.2 / 29-11-2013
+
+* Refactor application file structure
+
 ## v0.10.1 / 28-11-2013
 
 * Scroll window to top of article when article opened

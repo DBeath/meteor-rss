@@ -1,7 +1,7 @@
 /* CSS declarations go here */
 
 body {
-	padding-top: 50px;
+	font-size: 90%;
 }
 
 * {
@@ -12,4 +12,8 @@ body {
 
 .read {
 	background-color: #F0F0F0;
+}
+
+p {
+	font-size: .8rem;
 }

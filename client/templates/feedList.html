@@ -1,0 +1,28 @@
+<template name="feedList">
+	<div class="large-4 columns"> 
+		<ul class="side-nav">
+			<li class="heading">Feeds</li>
+
+			<div class="row collapse">
+				<div class="small-9 columns">
+					<input type="url" placeholder="Feed Url" id="feedUrl" />
+				</div>
+				<div class="small-3 columns">
+					<a href="#" class="button postfix" id="addFeed"><small>Add Feed</small></a>
+				</div>
+			</div>
+			<li class="divider"></li>
+			{{#each feedList}}
+				<li class="{{#if current}}active{{/if}} feed">
+					<a href="#">{{title}} <span class="label">{{unread}} </span>
+					{{#if unread}}
+						<span class="success label markRead">Mark Read</span>
+					{{/if}} 
+						<span class="alert label removeFeed">Remove</span>
+					</a>
+				</li>
+				<li class="divider"></li>
+			{{/each}}
+		</ul>
+	</div>
+</template>

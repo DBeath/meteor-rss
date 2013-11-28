@@ -126,22 +126,20 @@ function markAllRead(feed){
 
 // Mark a single article as read.
 function markRead(articleId, done){
-	var article = Articles.findOne({_id: articleId}, function(){
-		if (!article.read) {
-			Articles.update(article._id, {$set: {read: true}}, done);
-			Feeds.update(article.feedId, {$inc: {unread: -1}}, done);
-		};
-	});
+	var article = Articles.findOne({_id: articleId});
+	if (!article.read) {
+		Articles.update(article._id, {$set: {read: true}}, done);
+		Feeds.update(article.feedId, {$inc: {unread: -1}}, done);
+	};
 };
 
 // Mark a single article as unread.
 function markUnread(articleId, done){
-	var article = Articles.findOne({_id: articleId}, function(){
-		if (article.read){
-			Articles.update(article._id, {$set: {read: false}}, done);
-			Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
-		};
-	});
+	var article = Articles.findOne({_id: articleId});
+	if (article.read){
+		Articles.update(article._id, {$set: {read: false}}, done);
+		Feeds.update(article.feedId, {$inc: {unread: 1}}, done);
+	};
 };
 
 // Remove a single feed, and all it's unstarred articles.

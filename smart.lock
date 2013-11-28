@@ -2,13 +2,19 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "moment": {}
+      "moment": {},
+      "Foundation-5": {}
     },
     "packages": {
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
         "tag": "v2.2.1",
         "commit": "9ee12e714afe56b189f53076447b7b54f3012065"
+      },
+      "Foundation-5": {
+        "git": "https://github.com/ConnorAtherton/meteor-foundation-5.git",
+        "tag": "v0.2.0",
+        "commit": "670d6963825c6eeb3e145cbf9819f538dc82028f"
       }
     }
   }
