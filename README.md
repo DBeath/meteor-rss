@@ -5,11 +5,14 @@ An RSS reader made with [Meteor](http://www.meteor.com/).
 ## Installation
 
 You'll need to have the following programs installed:
-* [Meteor](http://www.meteor.com/) ```curl https://install.meteor.com | /bin/sh```
 * [node.js](http://nodejs.org/)
+* [Meteor](http://www.meteor.com/) ```curl https://install.meteor.com | /bin/sh```
+* [Meteorite](https://github.com/oortcloud/meteorite/) ```npm install -g meteorite```
+
 
 Clone the repo ```git clone https://github.com/DBeath/meteor-rss.git```  
-Navigate to the directory ```cd meteor-rss```  
+Navigate to the directory ```cd meteor-rss``` 
+Run meteorite to install the smart packages ```mrt add``` 
 Run meteor ```meteor```  
 In your browser, navigate to ```localhost:3000```  
 
