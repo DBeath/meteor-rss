@@ -1,16 +1,11 @@
 /// article ///
-function articleClick(article){
+function articleClick(article, done){
     var articleOpen = Session.get('article_open');
-
-    Meteor.call('markRead', articleOpen, done);
-
-    if (articleOpen === article._id){
-        Session.set('article_open', null);
-    } else {
+    if (articleOpen != article._id && articleOpen != null){
+        Meteor.call('markRead', articleOpen, done);
         Session.set('previous_article', articleOpen);
-         
-        Session.set('article_open', article._id);   
-    };    
+    };
+    Session.set('article_open', article._id);       
 };
 
 Template.article.open = function(){
@@ -23,6 +18,11 @@ Template.article.events({
     },
     'click .markedRead': function(){
         Meteor.call('markUnread', this._id, done);
+    },
+    'click .closeArticle': function(e){
+        Meteor.call('markRead', this._id, done);
+        Session.set('article_open', null);
+        e.stopImmediatePropagation();
     }
 });
 
