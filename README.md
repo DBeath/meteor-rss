@@ -12,8 +12,7 @@ You'll need to have the following programs installed:
 
 Clone the repo ```git clone https://github.com/DBeath/meteor-rss.git```  
 Navigate to the directory ```cd meteor-rss``` 
-Run meteorite to install the smart packages ```mrt add``` 
-Run meteor ```meteor```  
+Run Meteorite to install smart packages and start Meteor ```mrt```
 In your browser, navigate to ```localhost:3000```  
 
 If you get an error saying something about npm not being able to find feedparser, then read the [instructions here](https://davidbeath.com/posts/using-node-modules-with-meteor.html).  
