@@ -1,6 +1,7 @@
 {
   "packages": {
     "moment": {},
-    "Foundation-5": {}
+    "Foundation-5": {},
+    "iron-router": {}
   }
 }

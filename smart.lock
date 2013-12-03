@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "moment": {},
-      "Foundation-5": {}
+      "Foundation-5": {},
+      "iron-router": {}
     },
     "packages": {
       "moment": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/ConnorAtherton/meteor-foundation-5.git",
         "tag": "v0.2.0",
         "commit": "670d6963825c6eeb3e145cbf9819f538dc82028f"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.6.1",
+        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
       }
     }
   }
