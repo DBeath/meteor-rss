@@ -8,8 +8,8 @@
     "packages": {
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.2.1",
-        "commit": "9ee12e714afe56b189f53076447b7b54f3012065"
+        "tag": "v2.5.1",
+        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
       },
       "Foundation-5": {
         "git": "https://github.com/ConnorAtherton/meteor-foundation-5.git",
