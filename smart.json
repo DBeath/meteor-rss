@@ -2,8 +2,6 @@
   "packages": {
     "moment": {},
     "Foundation-5": {},
-    "iron-router": {
-    	"git": "https://github.com/EventedMind/iron-router.git"
-    }
+    "iron-router": {}
   }
 }
