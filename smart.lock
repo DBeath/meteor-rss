@@ -4,7 +4,15 @@
     "basePackages": {
       "moment": {},
       "Foundation-5": {},
+<<<<<<< HEAD
       "iron-router": {}
+=======
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "branch": "master"
+      },
+      "feedparser": {}
+>>>>>>> 1287cd0ca2dd5ecfaa8d054195e1076a328e66fb
     },
     "packages": {
       "moment": {
@@ -19,8 +27,18 @@
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
+<<<<<<< HEAD
         "tag": "v0.6.1",
         "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+=======
+        "branch": "master",
+        "commit": "7a1fb1b8c6721a6e548d9ad0568a6b5ae390efba"
+      },
+      "feedparser": {
+        "git": "https://github.com/DBeath/meteor-feedparser.git",
+        "tag": "v0.16.3",
+        "commit": "6c1a67a542868b2331b2c189a9b2e6e1f2af7cd1"
+>>>>>>> 1287cd0ca2dd5ecfaa8d054195e1076a328e66fb
       }
     }
   }
