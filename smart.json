@@ -2,13 +2,7 @@
   "packages": {
     "moment": {},
     "Foundation-5": {},
-<<<<<<< HEAD
-    "iron-router": {}
-=======
-    "iron-router": {
-      "git": "https://github.com/EventedMind/iron-router.git"
-    },
+    "iron-router": {},
     "feedparser": {}
->>>>>>> 1287cd0ca2dd5ecfaa8d054195e1076a328e66fb
   }
 }

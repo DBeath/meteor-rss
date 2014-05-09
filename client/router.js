@@ -1,16 +1,8 @@
-Router.configure({
-	layoutTemplate: 'layout',
-	loadingTemplate: 'loading'
-});
-
-Router.map(function(){
+Router.map(function () {
 	this.route('home', {
 		path: '/',
 		template: 'home',
-		yieldTemplates: {
-			'feedList': {to: 'feedList'},
-			'articleList': {to: 'articleList'}
-		}
+		layoutTemplate: 'layout'
 	});
 
 	this.route('article', {
