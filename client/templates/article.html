@@ -17,18 +17,10 @@
 			{{/if}}
 
 			<small>{{author}} | {{timestamp}}</small>
-
-			
 		</div>
 
 		{{#if open}}
-			<div class="article_content">
-				{{{content}}}
-			</div>
-			<footer>
-				<a href="{{link}}"></a>
-			</footer>
-			<hr />      
+			{{> articleContent}} 
 		{{/if}}
 
 	</div>

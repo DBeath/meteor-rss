@@ -3,18 +3,35 @@
   "dependencies": {
     "basePackages": {
       "moment": {},
-      "Foundation-5": {}
+      "Foundation-5": {},
+      "iron-router": {},
+      "feedparser": {}
     },
     "packages": {
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.5.1",
-        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
       "Foundation-5": {
         "git": "https://github.com/ConnorAtherton/meteor-foundation-5.git",
         "tag": "v0.2.0",
         "commit": "670d6963825c6eeb3e145cbf9819f538dc82028f"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
+      },
+      "feedparser": {
+        "git": "https://github.com/DBeath/meteor-feedparser.git",
+        "tag": "v0.16.3",
+        "commit": "6c1a67a542868b2331b2c189a9b2e6e1f2af7cd1"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       }
     }
   }

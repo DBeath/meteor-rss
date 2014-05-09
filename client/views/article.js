@@ -10,6 +10,7 @@ function articleClick(article, done){
 
 Template.article.open = function(){
     return Session.equals('article_open', this._id) ? "open" : "";
+    console.log('open');
 };
 
 Template.article.events({
