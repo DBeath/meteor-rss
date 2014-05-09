@@ -1,8 +1,11 @@
+Router.configure({
+	layoutTemplate: 'layout'
+});
+
 Router.map(function () {
 	this.route('home', {
 		path: '/',
-		template: 'home',
-		layoutTemplate: 'layout'
+		template: 'home'
 	});
 
 	this.route('article', {
