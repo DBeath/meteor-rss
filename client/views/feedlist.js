@@ -1,8 +1,8 @@
 /// feedList ///
 
-Template.feedList.feedList = function(){
-    return Feeds.find();
-};
+// Template.feedList.feedList = function(){
+//     return Feeds.find();
+// };
 
 Template.feedList.current = function(){
     return Session.equals('current_feed', this._id);

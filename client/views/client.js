@@ -12,12 +12,8 @@ var done = function (err, result){
 
 Deps.autorun(function(){
     Meteor.subscribe('feeds');
-    
 });
 
 Deps.autorun(function(){
     Meteor.subscribe('articles', Session.get('current_feed'));
 });
-
-
-

@@ -1,9 +1,9 @@
 /// articleList ///
 
-Template.articleList.articles = function(){
-    return Articles.find({feedId: Session.get('current_feed')},
-        { sort:  [['read', 'asc'],["date", "desc"]] });
-};
+// Template.articleList.articles = function(){
+//     return Articles.find({feedId: Session.get('current_feed')},
+//         { sort:  [['read', 'asc'],["date", "desc"]] });
+// };
 
 Template.articleList.events({
     'click input.removeArticle': function(){
@@ -26,7 +26,7 @@ Template.articleList.events({
     // }
 });
 
-Template.articleList.rendered = function(){
-    var divId = '#' + Session.get('article_open');
-    $('html, body').scrollTop($(divId).offset().top - 50);
-};
+// Template.articleList.rendered = function(){
+//     var divId = '#' + Session.get('article_open');
+//     $('html, body').scrollTop($(divId).offset().top - 50);
+// };
