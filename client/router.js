@@ -13,8 +13,9 @@ Router.map(function () {
 		template: 'article'
 	});
 
-	// this.route('feed', {
-	// 	path: '/:title',
-	// 	template: 'articleList'
-	// })
+	this.route('feed', {
+		path: '/:title',
+		layoutTemplate: 'home',
+		template: 'articleList'
+	});
 });
