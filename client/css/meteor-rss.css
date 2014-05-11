@@ -11,9 +11,28 @@ body {
 }
 
 .read {
-	background-color: #F0F0F0;
+	background-color: #f0f0f0;
 }
 
 p {
 	font-size: .8rem;
+}
+
+.fullWidth {
+   width: 100%;
+   margin-left: 0;
+   margin-right: 0;
+   max-width: initial;
+}
+
+.row {
+	max-width: 99%;
+}
+
+.article {
+	border-width: 0px 0px 1px 0px;
+	border-style: solid;
+	border-color: #ddd;
+	width: 100%;
+	max-width: none;
 }
