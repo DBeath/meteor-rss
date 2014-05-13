@@ -4,6 +4,12 @@ Router.configure({
 });
 
 Router.map(function () {
+
+	this.route('login', {
+		path: '/login',
+		template: 'login'
+	});
+
 	this.route('home', {
 		path: '/',
 		template: 'home',
@@ -25,8 +31,7 @@ Router.map(function () {
 
 	this.route('feed', {
 		path: '/:title',
-		layoutTemplate: 'home',
-		template: 'articleList',
+		template: 'home',
 		yieldTemplates: {
 			'articleList': {to: 'articleList'},
 			'feedList': {to: 'feedList'}
@@ -50,4 +55,6 @@ Router.map(function () {
 			};
 		}
 	});
+
+	
 });

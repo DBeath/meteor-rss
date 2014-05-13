@@ -7,6 +7,16 @@ Template.login.events({
       if (error) {
         $("#notify").val(error);
       };
+      Router.go('/');
+    });
+  }
+});
+
+Template.header.events({
+  'click #logout': function () {
+    console.log('logging out user');
+    Meteor.logout(function () {
+      console.log('logged out');
     });
   }
 });
