@@ -9,7 +9,7 @@
 		<section class="top-bar-section">
 			<ul class="right">
 			{{#if currentUser}}
-				<li class="button" id="logout">Logout</li>
+				{{> logout}}
 			{{else}}
 				<li><a href="{{pathFor 'login'}}" class="button" id="btnsignin">Sign In</a></li>
 			{{/if}}

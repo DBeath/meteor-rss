@@ -12,7 +12,7 @@ Template.login.events({
   }
 });
 
-Template.header.events({
+Template.logout.events({
   'click #logout': function () {
     console.log('logging out user');
     Meteor.logout(function () {

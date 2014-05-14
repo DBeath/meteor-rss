@@ -1,36 +1,14 @@
 <template name="home">
-<!-- 	{{> header}} -->
 	<div class="row fullwidth">
 		{{#if currentUser}}
 				{{> yield region='feedList'}}
 				{{> yield region='articleList'}}
 		{{else}}
-			{{> welcome}}
+			{{> signup}}
 		{{/if}}
 	</div>
 </template>
 
 <template name="notFound">
 	<h1>Not Found</h1>
-</template>
-
-<template name="welcome">
-	<h1 class="text-center">Meteor-RSS</h1>
-	<p class="text-center">Create an account below or sign in at top right</p>
-	{{> signup}}
-	<br />
-	<p class="text-center">Copyright (c) 2013 <a href="http://davidbeath.com">David Beath</a></p>
-	<p class="text-center">Source: <a href="http://github.com/DBeath/meteor-rss">Meteor-RSS</a></p>
-</template>
-
-<template name="signup">
-<form id="signup-form" action="action">
-    <div class="row">
-      <div class="large-4 columns large-centered text-center">
-        <input type="email" placeholder="email" id="signup-email"/>
-        <input type="password" placeholder="password" id="signup-password"/>
-        <input type="submit" id="signup-button" class="button" value="Create Account"/>
-      </div>
-    </div>
-  </form>
 </template>
