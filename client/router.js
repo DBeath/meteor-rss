@@ -56,5 +56,13 @@ Router.map(function () {
 		}
 	});
 
-	
+	this.route('account', {
+		path: '/account',
+		template: 'account',
+		data: function () {
+			return {
+				user: Meteor.user()
+			};
+		}
+	});
 });
